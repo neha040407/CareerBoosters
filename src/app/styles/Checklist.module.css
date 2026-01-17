@@ -1,0 +1,178 @@
+.checklistPage {
+    max-width: 900px;
+    animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #94a3b8;
+    font-size: 1.1rem;
+}
+
+.progressContainer {
+    text-align: right;
+}
+
+.progressValue {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.progressLabel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.progressBarWrapper {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
+    margin-bottom: 48px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.progressBar {
+    height: 100%;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.taskCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.taskCard:hover {
+    transform: translateX(8px);
+    border-color: rgba(14, 165, 233, 0.3);
+    background: var(--surface-hover);
+}
+
+.completedTask {
+    background: rgba(16, 185, 129, 0.03);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.iconBox {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    color: #64748b;
+    transition: all 0.3s;
+}
+
+.completedIconBox {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.taskInfo {
+    flex: 1;
+}
+
+.taskText {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+    transition: all 0.3s;
+}
+
+.completedText {
+    color: #64748b;
+    text-decoration: line-through;
+}
+
+.categoryBadge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.checkIcon {
+    color: #1e293b;
+    transition: all 0.3s;
+}
+
+.checked {
+    color: #10b981;
+}
+
+.tipCard {
+    margin-top: 48px;
+    padding: 24px;
+    background: rgba(14, 165, 233, 0.05);
+    border: 1px solid rgba(14, 165, 233, 0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.tipIcon {
+    color: var(--primary);
+}
+
+.tipText {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.tipText b {
+    color: var(--primary);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
