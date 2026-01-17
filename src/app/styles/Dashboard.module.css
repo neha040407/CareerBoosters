@@ -2,7 +2,7 @@
     width: 280px;
     height: 100vh;
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px);
     border-right: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
@@ -10,34 +10,39 @@
     left: 0;
     top: 0;
     z-index: 100;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition-glide);
 }
 
 .logo {
     padding: 40px 32px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.logo:hover {
+    transform: scale(1.05);
 }
 
 .logoIcon {
-    width: 42px;
-    height: 42px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    box-shadow: 0 8px 20px var(--primary-glow);
 }
 
 .logoText {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 800;
-    color: white;
-    letter-spacing: -0.03em;
+    color: var(--foreground);
+    letter-spacing: -0.04em;
 }
 
 .logoHighlight {
@@ -46,49 +51,52 @@
 
 .navSection {
     flex: 1;
-    padding: 20px 16px;
+    padding: 24px 16px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 
 .navLink {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 14px 20px;
-    border-radius: 16px;
-    color: #94a3b8;
-    font-weight: 600;
-    font-size: 0.95rem;
+    padding: 16px 20px;
+    border-radius: 20px;
+    color: var(--foreground-muted);
+    font-weight: 700;
+    font-size: 1rem;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid transparent;
+    transition: var(--transition-glide);
+    overflow: hidden;
+    z-index: 1;
 }
 
 .navLink:hover {
-    background: rgba(14, 165, 233, 0.08);
-    color: white;
-    transform: translateX(4px);
-}
-
-.navLink svg {
-    transition: transform 0.3s ease;
-}
-
-.navLink:hover svg {
-    transform: scale(1.1);
+    color: var(--foreground);
+    transform: translateX(8px);
 }
 
 .active {
-    background: rgba(14, 165, 233, 0.12);
-    color: var(--primary);
-    border-color: rgba(14, 165, 233, 0.2);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    color: var(--primary) !important;
+}
+
+.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-glow);
+    z-index: -1;
+    border-radius: 20px;
+    animation: glideIn 0.4s var(--transition-glide);
 }
 
 .footer {
-    padding: 32px 20px;
+    padding: 32px 16px;
     border-top: 1px solid var(--border);
     display: flex;
     flex-direction: column;
@@ -100,48 +108,32 @@
     align-items: center;
     gap: 14px;
     padding: 16px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    background: var(--surface-hover);
+    border: 1px solid var(--border);
 }
 
 .avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
     color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.userInfo {
-    flex: 1;
-    min-width: 0;
 }
 
 .userName {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--foreground);
 }
 
 .userRole {
-    font-size: 0.75rem;
-    color: #64748b;
-    font-weight: 500;
-}
-
-.dashboardLayout {
-    display: flex;
-    min-height: 100vh;
-    gap: 0;
+    font-size: 0.8rem;
+    color: var(--foreground-muted);
 }
 
 .content {
@@ -149,19 +141,12 @@
     margin-left: 280px;
     padding: 60px 80px;
     min-height: 100vh;
-    position: relative;
-    z-index: 10;
-}
-
-@media (max-width: 1200px) {
-    .content {
-        padding: 40px;
-    }
+    animation: glideIn 0.8s var(--transition-glide);
 }
 
 @media (max-width: 1024px) {
     .sidebar {
-        width: 88px;
+        width: 96px;
     }
 
     .logoText,
@@ -172,11 +157,12 @@
     }
 
     .content {
-        margin-left: 88px;
+        margin-left: 96px;
+        padding: 40px;
     }
 
     .navLink {
         justify-content: center;
-        padding: 14px;
+        padding: 18px;
     }
 }

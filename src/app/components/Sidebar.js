@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -8,22 +9,49 @@ import {
     Settings,
     LogOut,
     Shield,
-    UserCircle
+    UserCircle,
+    Map
 } from 'lucide-react';
 import styles from '../styles/Dashboard.module.css';
 
 export default function Sidebar() {
     const pathname = usePathname();
-    // Mock logged in state for now
-    const isLoggedIn = true;
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const res = await fetch('/api/auth/me', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        setUser(data);
+                    } else if (res.status === 401) {
+                        localStorage.removeItem('token');
+                    }
+                } catch (err) {
+                    console.error('Failed to fetch user');
+                }
+            }
+        };
+        fetchUser();
+    }, [pathname]);
 
     const menuItems = [
         { name: 'Home', icon: Shield, path: '/' },
         { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
         { name: 'Analysis', icon: FileSearch, path: '/analyze' },
+        { name: 'Roadmap', icon: Map, path: '/roadmap' },
         { name: 'Checklist', icon: CheckSquare, path: '/checklist' },
         { name: 'Settings', icon: Settings, path: '/settings' },
     ];
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+    };
 
     return (
         <aside className={styles.sidebar}>
@@ -50,16 +78,18 @@ export default function Sidebar() {
             </nav>
 
             <div className={styles.footer}>
-                {isLoggedIn ? (
+                {user ? (
                     <>
                         <div className={styles.userCard}>
-                            <div className={styles.avatar}>JD</div>
+                            <div className={styles.avatar}>
+                                {user.name.split(' ').map(n => n[0]).join('')}
+                            </div>
                             <div className={styles.userInfo}>
-                                <div className={styles.userName}>John Doe</div>
+                                <div className={styles.userName}>{user.name}</div>
                                 <div className={styles.userRole}>Premium Member</div>
                             </div>
                         </div>
-                        <Link href="/login" className={styles.navLink} style={{ marginTop: '16px' }}>
+                        <Link href="/login" onClick={handleLogout} className={styles.navLink} style={{ marginTop: '16px' }}>
                             <LogOut size={20} />
                             <span className={styles.navText}>Logout</span>
                         </Link>

@@ -27,9 +27,9 @@ export default function Login() {
             const data = await res.json();
             if (res.ok) {
                 localStorage.setItem('token', data.token);
-                router.push('/analyze');
+                router.push('/dashboard');
             } else {
-                setError(data.message || 'Login failed');
+                setError(data.error || 'Login failed');
             }
         } catch (err) {
             setError('Something went wrong. Please try again.');
@@ -42,22 +42,20 @@ export default function Login() {
         <div className={styles.signupPage}>
             <div className={styles.card}>
                 <div className={styles.header}>
-                    <div className="flex justify-center mb-6">
-                        <div className="w-16 h-16 bg-sky-500/10 rounded-2xl flex items-center justify-center text-sky-500">
-                            <Shield size={32} />
-                        </div>
+                    <div className="w-14 h-14 bg-sky-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <Shield size={32} className="text-sky-500" />
                     </div>
                     <h1 className={styles.title}>Welcome Back</h1>
-                    <p className={styles.subtitle}>Securely sign in to your CareerTrust account</p>
+                    <p className={styles.subtitle}>Enter your details to access your dashboard.</p>
                 </div>
 
                 {error && <div className={styles.error}>{error}</div>}
 
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.inputGroup}>
-                        <label className={styles.label}>Email Address</label>
+                        <label className={styles.label}>Registered Email</label>
                         <div className={styles.inputWrapper}>
-                            <Mail className={styles.icon} size={20} />
+                            <Mail className={styles.icon} size={22} />
                             <input
                                 type="email"
                                 className={styles.input}
@@ -70,9 +68,9 @@ export default function Login() {
                     </div>
 
                     <div className={styles.inputGroup}>
-                        <label className={styles.label}>Password</label>
+                        <label className={styles.label}>Secure Password</label>
                         <div className={styles.inputWrapper}>
-                            <Lock className={styles.icon} size={20} />
+                            <Lock className={styles.icon} size={22} />
                             <input
                                 type="password"
                                 className={styles.input}
@@ -85,14 +83,14 @@ export default function Login() {
                     </div>
 
                     <button type="submit" className={styles.button} disabled={loading}>
-                        {loading ? 'Signing in...' : 'Sign In'}
-                        {!loading && <ArrowRight size={20} />}
+                        {loading ? 'Authenticating...' : 'Sign In'}
+                        {!loading && <ArrowRight size={22} />}
                     </button>
                 </form>
 
                 <div className={styles.footer}>
-                    Don't have an account?
-                    <Link href="/signup" className={styles.link}> Create one for free</Link>
+                    New to CareerTrust?
+                    <Link href="/signup" className={styles.link}> Joining is free</Link>
                 </div>
             </div>
         </div>

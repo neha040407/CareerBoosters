@@ -39,8 +39,12 @@ export async function POST(req) {
             }
         );
     } catch (error) {
-        console.error(error);
-        return new Response(JSON.stringify({ error: 'Server error' }), {
+        console.error('Signup error:', error);
+        return new Response(JSON.stringify({
+            error: 'Server error',
+            message: error.message,
+            code: error.name
+        }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
         });

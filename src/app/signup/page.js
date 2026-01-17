@@ -24,11 +24,7 @@ export default function Signup() {
             });
 
             const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(data.error || 'Something went wrong');
-            }
-
+            if (!res.ok) throw new Error(data.error || 'Something went wrong');
             router.push('/login');
         } catch (err) {
             setError(err.message);
@@ -39,19 +35,13 @@ export default function Signup() {
 
     return (
         <div className={styles.signupPage}>
-            {/* Background Ambience */}
-            <div className="fixed inset-0 z-0 bg-[#0b1120]">
-                <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-sky-900/20 rounded-full blur-[100px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[100px]" />
-            </div>
-
             <div className={styles.card}>
                 <div className={styles.header}>
-                    <div className="w-12 h-12 bg-sky-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <Sparkles className="text-sky-400 w-6 h-6" />
+                    <div className="w-14 h-14 bg-sky-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <Sparkles className="text-sky-500 w-7 h-7" />
                     </div>
-                    <h1 className={styles.title}>Join CareerTrust</h1>
-                    <p className={styles.subtitle}>Begin your professional journey today</p>
+                    <h1 className={styles.title}>Secure Sign Up</h1>
+                    <p className={styles.subtitle}>Build your professional future with confidence.</p>
                 </div>
 
                 {error && <div className={styles.error}>{error}</div>}
@@ -60,11 +50,11 @@ export default function Signup() {
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>Full Name</label>
                         <div className={styles.inputWrapper}>
-                            <User className={styles.icon} size={20} />
+                            <User className={styles.icon} size={22} />
                             <input
                                 className={styles.input}
                                 type="text"
-                                placeholder="John Doe"
+                                placeholder="e.g. John Doe"
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 required
@@ -75,11 +65,11 @@ export default function Signup() {
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>Email Address</label>
                         <div className={styles.inputWrapper}>
-                            <Mail className={styles.icon} size={20} />
+                            <Mail className={styles.icon} size={22} />
                             <input
                                 className={styles.input}
                                 type="email"
-                                placeholder="john@example.com"
+                                placeholder="name@company.com"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 required
@@ -90,11 +80,11 @@ export default function Signup() {
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>Password</label>
                         <div className={styles.inputWrapper}>
-                            <Lock className={styles.icon} size={20} />
+                            <Lock className={styles.icon} size={22} />
                             <input
                                 className={styles.input}
                                 type="password"
-                                placeholder="••••••••"
+                                placeholder="Minimum 6 characters"
                                 value={formData.password}
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 required
@@ -104,14 +94,14 @@ export default function Signup() {
                     </div>
 
                     <button type="submit" className={styles.button} disabled={loading}>
-                        {loading ? 'Creating Account...' : 'Create Account'}
-                        {!loading && <ArrowRight size={20} />}
+                        {loading ? 'Securing Account...' : 'Create Account'}
+                        {!loading && <ArrowRight size={22} />}
                     </button>
                 </form>
 
                 <div className={styles.footer}>
-                    Already have an account?
-                    <Link href="/login" className={styles.link}>Sign in</Link>
+                    Already a member?
+                    <Link href="/login" className={styles.link}>Sign in now</Link>
                 </div>
             </div>
         </div>
